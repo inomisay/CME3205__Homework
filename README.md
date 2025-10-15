@@ -53,6 +53,61 @@ The core of the project demonstrates key operating systems concepts, including s
 ### Compilation
 Open your terminal and compile the source code using `gcc`. Make sure to link the pthread library.
 
-```bash
-gcc your_source_file.c -o text_server -lpthread
-bash'''
+    gcc your_source_file.c -o text_server -lpthread
+
+### Execution
+Running the application requires two separate terminal windows: one for the server and one for the client.
+
+1.  **Start the Server**<br>
+    In your first terminal, run the compiled executable. The server will start and wait for a client to connect. Keep this terminal open.
+
+        ./text_server
+
+2.  **Connect with a Client**<br>
+    Open a **new** terminal window and use `telnet` to connect to the server on port 60000.
+
+        telnet localhost 60000
+        
+Once connected, you can follow the server's prompts to send text for analysis.
+
+---
+## 🖥️ Example Interaction
+
+Below is a sample session demonstrating how a user interacts with the server via `telnet`.
+
+    $ telnet localhost 60000
+    Trying 127.0.0.1...
+    Connected to localhost.
+    Escape character is '^]'.
+    Hello, this is Text Analysis Server!
+    Please enter your input string:
+    Hello their how are yu
+
+    WORD 01: hello
+    MATCHES: bell (2), cell (2), help (2), hill (2), hollow (2)
+    WORD hello is not present in dictionary.
+    Do you want to add this word to dictionary? (y/N): y
+
+    WORD 02: their
+    MATCHES: chair (2), hair (2), other (2), shear (2), tear (2)
+    WORD their is not present in dictionary.
+    Do you want to add this word to dictionary? (y/N): n
+
+    WORD 03: how
+    MATCHES: how (0), cow (1), low (1), now (1), show (1)
+
+    WORD 04: are
+    MATCHES: age (1), arc (1), area (1), arm (1), art (1)
+    WORD are is not present in dictionary.
+    Do you want to add this word to dictionary? (y/N): y
+
+    WORD 05: yu
+    MATCHES: you (1), a (2), as (2), at (2), be (2)
+    WORD yu is not present in dictionary.
+    Do you want to add this word to dictionary? (y/N): n
+
+    INPUT: hello their how are yu
+    OUTPUT: hello chair how are you
+
+    Thank you for using Text Analysis Server! Good Bye!
+    Connection closed by foreign host.
